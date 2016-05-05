@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<it.mahd.taxiadmin.model.DashboardLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1">
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/Taxi_btn"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/taxi" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/Publicity_btn"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/publicity" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/Users_btn"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/users" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/Services_btn"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/services" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/Books_btn"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/books" />
+
+    <Button
+        style="@style/DashButton"
+        android:id="@+id/Reclamations_btn"
+        android:drawableTop="@mipmap/ic_launcher"
+        android:text="@string/reclamations" />
+</it.mahd.taxiadmin.model.DashboardLayout>
