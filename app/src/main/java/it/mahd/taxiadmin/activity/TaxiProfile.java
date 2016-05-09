@@ -10,6 +10,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class TaxiProfile extends Fragment {
     ServerRequest sr = new ServerRequest();
 
     private TextView Model_txt, Serial_txt, Places_txt, Luggages_txt, Date_txt;
+    private Button Delete_btn;
     private String idTaxi, model, serial, places, luggages, date;
 
     @Override
@@ -56,12 +58,34 @@ public class TaxiProfile extends Fragment {
         Places_txt = (TextView) rootView.findViewById(R.id.Places_txt);
         Luggages_txt = (TextView) rootView.findViewById(R.id.Luggages_txt);
         Date_txt = (TextView) rootView.findViewById(R.id.Date_txt);
+        Delete_btn = (Button) rootView.findViewById(R.id.Delete_btn);
 
         Model_txt.setText(model);
         Serial_txt.setText(serial);
         Places_txt.setText(places + " Places");
         Luggages_txt.setText(luggages + " Luggages");
         Date_txt.setText(date);
+
+        Delete_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair(conf.tag_id, idTaxi));
+                JSONObject json = sr.getJSON(conf.url_deleteTaxi, params);
+                if(json != null){
+                    try {
+                        Toast.makeText(getActivity(), json.getString(conf.response), Toast.LENGTH_SHORT).show();
+                        if(json.getBoolean(conf.res)) {
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.replace(R.id.container_body, new Taxi());
+                            ft.addToBackStack(null);
+                            ft.commit();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         return rootView;
     }

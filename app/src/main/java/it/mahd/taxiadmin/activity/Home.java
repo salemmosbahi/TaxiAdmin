@@ -70,7 +70,7 @@ public class Home extends Fragment {
         Books_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goFragment(new Books());
+                goFragment(new Book());
             }
         });
 
@@ -78,7 +78,7 @@ public class Home extends Fragment {
         Reclamations_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goFragment(new Reclamations());
+                goFragment(new Reclamation());
             }
         });
 

@@ -14,12 +14,12 @@ import android.view.View;
 
 import com.github.nkzawa.socketio.client.Socket;
 
-import it.mahd.taxiadmin.activity.Books;
+import it.mahd.taxiadmin.activity.Book;
 import it.mahd.taxiadmin.activity.Home;
 import it.mahd.taxiadmin.activity.Login;
 import it.mahd.taxiadmin.activity.Notifications;
 import it.mahd.taxiadmin.activity.Publicity;
-import it.mahd.taxiadmin.activity.Reclamations;
+import it.mahd.taxiadmin.activity.Reclamation;
 import it.mahd.taxiadmin.activity.Services;
 import it.mahd.taxiadmin.activity.Settings;
 import it.mahd.taxiadmin.activity.Taxi;
@@ -106,11 +106,11 @@ public class Main extends AppCompatActivity implements FragmentDrawer.FragmentDr
                 title = getString(R.string.services);
                 break;
             case 5:
-                fragment = new Books();
+                fragment = new Book();
                 title = getString(R.string.books);
                 break;
             case 6:
-                fragment = new Reclamations();
+                fragment = new Reclamation();
                 title = getString(R.string.reclamations);
                 break;
             case 7:

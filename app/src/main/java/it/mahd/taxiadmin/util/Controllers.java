@@ -17,7 +17,14 @@ public class Controllers {
     public static final String url_getOnePublicity = url + "/getOnePublicity";
     public static final String url_getAllMark = url + "/getAllMark";
     public static final String url_addTaxi = url + "/addTaxi";
+    public static final String url_deleteTaxi = url + "/deleteTaxi";
     public static final String url_addPublicity = url + "/addPublicity";
+    public static final String url_deletePublicity = url + "/deletePublicity";
+    public static final String url_getAllService = url + "/getAllService";
+    public static final String url_addService = url + "/addService";
+    public static final String url_getAllReclamationAdmin = url + "/getAllReclamationAdmin";
+    public static final String url_getAllMessage = url + "/getAllMessage";
+    public static final String url_addMessageAdmin = url + "/addMessageAdmin";
 
     public static final String app = "AppTaxiAdmin";
     public static final String res = "res";
@@ -75,6 +82,9 @@ public class Controllers {
     public static final String tag_luggages = "luggages";
     public static final String tag_period = "period";
     public static final String tag_price = "price";
+    public static final String tag_category = "category";
+    public static final String tag_value = "value";
+    public static final String tag_me = "me";
     public static final String tag_notify = "notify";
 
     public Controllers() {}

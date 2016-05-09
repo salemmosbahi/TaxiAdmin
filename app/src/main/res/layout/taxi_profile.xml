@@ -37,4 +37,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/Delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:text="@string/delete"
+        android:textAllCaps="false"
+        android:background="@color/purpleDeep"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
 </LinearLayout>

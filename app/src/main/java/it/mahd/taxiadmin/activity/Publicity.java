@@ -110,10 +110,11 @@ public class Publicity extends Fragment {
                             JSONObject c = loads.getJSONObject(i);
                             String idTaxi = c.getString(conf.tag_id);
                             String name = c.getString(conf.tag_name);
-                            String period = c.getString(conf.tag_period);
+                            String category = c.getString(conf.tag_category);
                             String price = c.getString(conf.tag_price);
+                            String period = c.getString(conf.tag_period);
                             String date = c.getString(conf.tag_date);
-                            PublicityDB taxi = new PublicityDB(idTaxi, name, period, price, date);
+                            PublicityDB taxi = new PublicityDB(idTaxi, name, category, price, period, date);
                             taxiDBList.add(taxi);
                         }
                     }
@@ -126,7 +127,7 @@ public class Publicity extends Fragment {
         lv.setAdapter(adapter);
     }
 
-    private void getPub() {
+    public void getPub() {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         taxiDBList = new ArrayList<>();
         JSONObject json = sr.getJSON(conf.url_getAllPublicity, params);
@@ -139,10 +140,11 @@ public class Publicity extends Fragment {
                             JSONObject c = loads.getJSONObject(i);
                             String idTaxi = c.getString(conf.tag_id);
                             String name = c.getString(conf.tag_name);
-                            String period = c.getString(conf.tag_period);
+                            String category = c.getString(conf.tag_category);
                             String price = c.getString(conf.tag_price);
+                            String period = c.getString(conf.tag_period);
                             String date = c.getString(conf.tag_date);
-                            PublicityDB taxi = new PublicityDB(idTaxi, name, period, price, date);
+                            PublicityDB taxi = new PublicityDB(idTaxi, name, category, price, period, date);
                             taxiDBList.add(taxi);
                         }
                     }
@@ -150,9 +152,9 @@ public class Publicity extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            PublicityAdapterList adapter = new PublicityAdapterList(getActivity(), taxiDBList, Publicity.this);
+            lv.setAdapter(adapter);
         }
-        PublicityAdapterList adapter = new PublicityAdapterList(getActivity(), taxiDBList, Publicity.this);
-        lv.setAdapter(adapter);
     }
 
     @Override

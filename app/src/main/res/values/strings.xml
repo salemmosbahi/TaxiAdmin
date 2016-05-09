@@ -10,8 +10,9 @@
     <string name="taxi_search">Search Taxi</string>
     <string name="taxi_add">Add Taxi</string>
     <string name="taxi_profile">Profile Taxi</string>
-    <string name="reclamations">Reclamations</string>
-    <string name="services">Services</string>
+    <string name="reclamations">Reclamation</string>
+    <string name="services">Service</string>
+    <string name="service_add">Add Service</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="settings">Settings</string>
@@ -19,6 +20,9 @@
     <string name="login">Login</string>
     <string name="serial">Serial</string>
     <string name="serial_err">Enter the serial</string>
+
+    <string name="category">Category</string>
+    <string name="category_err">Enter the category</string>
     <string name="working">Working</string>
     <string name="password">Password</string>
     <string name="password_err">Enter the password</string>
@@ -30,7 +34,10 @@
     <string name="model">Model</string>
     <string name="model_err">Enter the model</string>
     <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
     <string name="empty_fields_link">Empty fields !!</string>
+    <string name="subject">Subject</string>
     <string name="name">Name</string>
     <string name="name_err">Enter the name</string>
     <string name="price">Price</string>
@@ -63,5 +70,13 @@
         <item>6 month</item>
         <item>1 year</item>
         <item>5 years</item>
+    </string-array>
+
+    <string-array name="value_arrays">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 </resources>

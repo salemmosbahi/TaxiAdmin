@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -35,48 +34,28 @@ import it.mahd.taxiadmin.util.Controllers;
 import it.mahd.taxiadmin.util.ServerRequest;
 
 /**
- * Created by salem on 05/05/16.
+ * Created by salem on 09/05/16.
  */
-public class PublicityAdd extends Fragment {
+public class ServiceAdd extends Fragment {
     SharedPreferences pref;
     Controllers conf = new Controllers();
     ServerRequest sr = new ServerRequest();
 
-    private Spinner Period_sp;
-    private EditText Name_etxt, Category_etxt, Price_etxt;
-    private TextInputLayout Name_input, Category_input, Price_input;
-    private TextView Date_txt;
-    private int year, month, day;
+    private Spinner Value_sp;
+    private EditText Name_etxt;
+    private TextInputLayout Name_input;
     private Button Add_btn, Empty_btn;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.publicity_add, container, false);
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.publicity_add));
+        View rootView = inflater.inflate(R.layout.service_add, container, false);
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.service_add));
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
 
         Name_input = (TextInputLayout) rootView.findViewById(R.id.Name_input);
         Name_etxt = (EditText) rootView.findViewById(R.id.Name_etxt);
-        Category_input = (TextInputLayout) rootView.findViewById(R.id.Category_input);
-        Category_etxt = (EditText) rootView.findViewById(R.id.Category_etxt);
-        Price_input = (TextInputLayout) rootView.findViewById(R.id.Price_input);
-        Price_etxt = (EditText) rootView.findViewById(R.id.Price_etxt);
-        Period_sp = (Spinner) rootView.findViewById(R.id.Period_sp);
-        Date_txt = (TextView) rootView.findViewById(R.id.Date_txt);
+        Value_sp = (Spinner) rootView.findViewById(R.id.Value_sp);
         Add_btn = (Button) rootView.findViewById(R.id.Add_btn);
         Empty_btn = (Button) rootView.findViewById(R.id.Empty_btn);
-
-        Calendar d = new Calculator().getCurrentTime();
-        year = d.get(Calendar.YEAR);
-        month  = d.get(Calendar.MONTH);
-        day  = d.get(Calendar.DAY_OF_MONTH);
-
-        Date_txt.setText(new StringBuilder().append(year).append("/").append(month + 1).append("/").append(day));
-        Date_txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new DatePickerDialog(getActivity(), R.style.MyMaterialDesignTheme, dateSetListener, year, month, day).show();
-            }
-        });
 
         Empty_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -99,30 +78,23 @@ public class PublicityAdd extends Fragment {
 
     private void emptyForm() {
         Name_etxt.setText("");
-        Category_etxt.setText("");
-        Price_etxt.setText("");
-        Period_sp.setSelection(0);
+        Value_sp.setSelection(0);
     }
 
     private void addForm() {
         if (!validateName()) { return; }
-        if (!validateCategory()) { return; }
-        if (!validatePrice()) { return; }
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair(conf.tag_name, Name_etxt.getText().toString()));
-        params.add(new BasicNameValuePair(conf.tag_category, Category_etxt.getText().toString()));
-        params.add(new BasicNameValuePair(conf.tag_price, Price_etxt.getText().toString()));
-        params.add(new BasicNameValuePair(conf.tag_period, Period_sp.getSelectedItem().toString()));
-        params.add(new BasicNameValuePair(conf.tag_date, Date_txt.getText().toString()));
-        JSONObject json = sr.getJSON(conf.url_addPublicity, params);
+        params.add(new BasicNameValuePair(conf.tag_value, Value_sp.getSelectedItem().toString()));
+        JSONObject json = sr.getJSON(conf.url_addService, params);
         if (json != null) {
             try{
                 String response = json.getString(conf.response);
                 if(json.getBoolean(conf.res)) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.addToBackStack(null);
-                    ft.replace(R.id.container_body, new Publicity());
+                    ft.replace(R.id.container_body, new Services());
                     ft.commit();
                 }
                 Toast.makeText(getActivity(),response,Toast.LENGTH_SHORT).show();
@@ -145,49 +117,18 @@ public class PublicityAdd extends Fragment {
         return true;
     }
 
-    private boolean validateCategory() {
-        if(Category_etxt.getText().toString().trim().isEmpty()) {
-            Category_input.setError(getString(R.string.category_err));
-            requestFocus(Category_etxt);
-            return false;
-        } else {
-            Category_input.setErrorEnabled(false);
-        }
-        return true;
-    }
-
-    private boolean validatePrice() {
-        if(Price_etxt.getText().toString().trim().isEmpty()) {
-            Price_input.setError(getString(R.string.price_err));
-            requestFocus(Price_etxt);
-            return false;
-        } else {
-            Price_input.setErrorEnabled(false);
-        }
-        return true;
-    }
-
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
 
-    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-            year = selectedYear;
-            month = selectedMonth;
-            day = selectedDay;
-            Date_txt.setText(new StringBuilder().append(year).append("/").append(month + 1).append("/").append(day));
-        }
-    };
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.addToBackStack(null);
-        ft.replace(R.id.container_body, new Publicity());
+        ft.replace(R.id.container_body, new Services());
         ft.commit();
     }
 
