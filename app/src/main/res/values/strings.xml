@@ -38,6 +38,7 @@
     <string name="delete">Delete</string>
     <string name="empty_fields_link">Empty fields !!</string>
     <string name="subject">Subject</string>
+    <string name="edit">Edit</string>
     <string name="name">Name</string>
     <string name="name_err">Enter the name</string>
     <string name="price">Price</string>

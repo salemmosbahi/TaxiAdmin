@@ -34,7 +34,7 @@ public class PublicityProfile extends Fragment {
     ServerRequest sr = new ServerRequest();
 
     private TextView Name_txt, Category_txt, Price_txt, Period_txt, Date_txt;
-    private Button Delete_btn;
+    private Button Delete_btn, Edit_btn;
     private String idPub, name, category, price, period, date;
 
     @Override
@@ -56,6 +56,8 @@ public class PublicityProfile extends Fragment {
         Period_txt = (TextView) rootView.findViewById(R.id.Luggages_txt);
         Date_txt = (TextView) rootView.findViewById(R.id.Date_txt);
         Delete_btn = (Button) rootView.findViewById(R.id.Delete_btn);
+        Edit_btn = (Button) rootView.findViewById(R.id.Edit_btn);
+        Edit_btn.setVisibility(View.VISIBLE);
 
         Name_txt.setText(name);
         Category_txt.setText(category);
@@ -84,6 +86,16 @@ public class PublicityProfile extends Fragment {
             }
         });
 
+        Edit_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.container_body, new PublicityAdd());
+                Bundle args = new Bundle();
+                args.putString(conf.tag_id, idPub);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
         return rootView;
     }
 

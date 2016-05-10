@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +31,8 @@ import java.util.List;
 
 import it.mahd.taxiadmin.Main;
 import it.mahd.taxiadmin.R;
+import it.mahd.taxiadmin.database.PublicityAdapterList;
+import it.mahd.taxiadmin.database.PublicityDB;
 import it.mahd.taxiadmin.util.Calculator;
 import it.mahd.taxiadmin.util.Controllers;
 import it.mahd.taxiadmin.util.ServerRequest;
@@ -46,13 +49,21 @@ public class PublicityAdd extends Fragment {
     private EditText Name_etxt, Category_etxt, Price_etxt;
     private TextInputLayout Name_input, Category_input, Price_input;
     private TextView Date_txt;
+    JSONArray loads = null;
+    private ArrayAdapter<String> periodArray;
+    private String type[] = {"6 month", "1 year", "5 years"};
     private int year, month, day;
+    private String idPub;
     private Button Add_btn, Empty_btn;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.publicity_add, container, false);
         ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.publicity_add));
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
+
+        if (getArguments() != null) {
+            idPub = getArguments().getString(conf.tag_id);
+        }
 
         Name_input = (TextInputLayout) rootView.findViewById(R.id.Name_input);
         Name_etxt = (EditText) rootView.findViewById(R.id.Name_etxt);
@@ -78,6 +89,15 @@ public class PublicityAdd extends Fragment {
             }
         });
 
+        periodArray = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, type); //selected item will look like a spinner set from XML
+        periodArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Period_sp.setAdapter(periodArray);
+
+        if (!idPub.equals("")) {
+            Add_btn.setText(R.string.edit);
+            getPub();
+        }
+
         Empty_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 emptyForm();
@@ -87,7 +107,11 @@ public class PublicityAdd extends Fragment {
         Add_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (conf.NetworkIsAvailable(getActivity())) {
-                    addForm();
+                    if (Add_btn.getText().toString().equals(R.string.add)) {
+                        addForm();
+                    } else if (Add_btn.getText().toString().equals(R.string.add)) {
+                        editForm();
+                    }
                 } else {
                     Toast.makeText(getActivity(),R.string.networkunvalid,Toast.LENGTH_SHORT).show();
                 }
@@ -102,6 +126,60 @@ public class PublicityAdd extends Fragment {
         Category_etxt.setText("");
         Price_etxt.setText("");
         Period_sp.setSelection(0);
+    }
+
+    private void editForm() {
+        if (!validateName()) { return; }
+        if (!validateCategory()) { return; }
+        if (!validatePrice()) { return; }
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair(conf.tag_id, idPub));
+        params.add(new BasicNameValuePair(conf.tag_name, Name_etxt.getText().toString()));
+        params.add(new BasicNameValuePair(conf.tag_category, Category_etxt.getText().toString()));
+        params.add(new BasicNameValuePair(conf.tag_price, Price_etxt.getText().toString()));
+        params.add(new BasicNameValuePair(conf.tag_period, Period_sp.getSelectedItem().toString()));
+        params.add(new BasicNameValuePair(conf.tag_date, Date_txt.getText().toString()));
+        JSONObject json = sr.getJSON(conf.url_editPublicity, params);
+        if (json != null) {
+            try{
+                String response = json.getString(conf.response);
+                if(json.getBoolean(conf.res)) {
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.addToBackStack(null);
+                    ft.replace(R.id.container_body, new Publicity());
+                    ft.commit();
+                }
+                Toast.makeText(getActivity(),response,Toast.LENGTH_SHORT).show();
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(getActivity(), R.string.serverunvalid,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getPub() {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair(conf.tag_id, idPub));
+        JSONObject json = sr.getJSON(conf.url_getPublicityById, params);
+        if(json != null){
+            try{
+                if(json.getBoolean(conf.res)) {
+                    loads = json.getJSONArray("data");
+                    if(loads.length() != 0){
+                        JSONObject c = loads.getJSONObject(0);
+                        Name_etxt.setText(c.getString(conf.tag_name));
+                        Category_etxt.setText(c.getString(conf.tag_category));
+                        Price_etxt.setText(c.getString(conf.tag_price));
+                        Period_sp.setSelection(periodArray.getPosition(c.getString(conf.tag_period)));
+                        Date_txt.setText(c.getString(conf.tag_date));
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void addForm() {

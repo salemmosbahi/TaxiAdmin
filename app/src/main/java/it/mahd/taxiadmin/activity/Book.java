@@ -24,11 +24,8 @@ import java.util.List;
 
 import it.mahd.taxiadmin.Main;
 import it.mahd.taxiadmin.R;
-import it.mahd.taxiadmin.database.BookAdvanceDB;
 import it.mahd.taxiadmin.database.BookNowAdapterList;
 import it.mahd.taxiadmin.database.BookNowDB;
-import it.mahd.taxiadmin.database.ReclamationAdapterList;
-import it.mahd.taxiadmin.database.ReclamationDB;
 import it.mahd.taxiadmin.util.Controllers;
 import it.mahd.taxiadmin.util.ServerRequest;
 
