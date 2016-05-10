@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  */
 public class Controllers {
     //public static final String url = "http://10.0.2.2:4004";
-    public static final String url = "http://192.168.8.101:4004";
+    public static final String url = "http://192.168.1.3:4004";
     public static final String url_login = url + "/loginAdmin";
     public static final String url_getAllTaxi = url + "/getAllTaxi";
     public static final String url_getOneTaxi = url + "/getOneTaxi";
@@ -25,6 +25,10 @@ public class Controllers {
     public static final String url_getAllReclamationAdmin = url + "/getAllReclamationAdmin";
     public static final String url_getAllMessage = url + "/getAllMessage";
     public static final String url_addMessageAdmin = url + "/addMessageAdmin";
+    public static final String url_getAllBookNow = url + "/getAllBookNow";
+    public static final String url_getAllBookAdvance = url + "/getAllBookAdvance";
+    public static final String url_getAllClients = url + "/getAllClients";
+    public static final String url_getAllDrivers = url + "/getAllDrivers";
 
     public static final String app = "AppTaxiAdmin";
     public static final String res = "res";
@@ -85,6 +89,9 @@ public class Controllers {
     public static final String tag_category = "category";
     public static final String tag_value = "value";
     public static final String tag_me = "me";
+    public static final String tag_nameClient = "nameClient";
+    public static final String tag_nameDriver = "nameDriver";
+    public static final String tag_dateBook = "dateBook";
     public static final String tag_notify = "notify";
 
     public Controllers() {}
