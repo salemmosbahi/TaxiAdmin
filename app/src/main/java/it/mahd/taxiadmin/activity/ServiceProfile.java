@@ -26,56 +26,48 @@ import it.mahd.taxiadmin.util.Controllers;
 import it.mahd.taxiadmin.util.ServerRequest;
 
 /**
- * Created by salem on 05/05/16.
+ * Created by salem on 12/05/16.
  */
-public class PublicityProfile extends Fragment {
+public class ServiceProfile extends Fragment {
     SharedPreferences pref;
     Controllers conf = new Controllers();
     ServerRequest sr = new ServerRequest();
 
-    private TextView Name_txt, Category_txt, Price_txt, Period_txt, Date_txt;
+    private TextView Name_txt, Value_txt;
     private Button Delete_btn, Edit_btn;
-    private String idPub, name, category, price, period, date;
+    private String idSer, name;
+    private int value;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.taxi_profile, container, false);
-        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.taxi_profile));
+        ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.service_profile));
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
 
-        idPub = getArguments().getString(conf.tag_id);
+        idSer = getArguments().getString(conf.tag_id);
         name = getArguments().getString(conf.tag_name);
-        category = getArguments().getString(conf.tag_category);
-        price = getArguments().getString(conf.tag_price);
-        period = getArguments().getString(conf.tag_period);
-        date = getArguments().getString(conf.tag_date);
+        value = getArguments().getInt(conf.tag_value);
 
         Name_txt = (TextView) rootView.findViewById(R.id.Model_txt);
-        Category_txt = (TextView) rootView.findViewById(R.id.Serial_txt);
-        Price_txt = (TextView) rootView.findViewById(R.id.Places_txt);
-        Period_txt = (TextView) rootView.findViewById(R.id.Luggages_txt);
-        Date_txt = (TextView) rootView.findViewById(R.id.Date_txt);
+        Value_txt = (TextView) rootView.findViewById(R.id.Places_txt);
         Delete_btn = (Button) rootView.findViewById(R.id.Delete_btn);
         Edit_btn = (Button) rootView.findViewById(R.id.Edit_btn);
         Edit_btn.setVisibility(View.VISIBLE);
 
         Name_txt.setText(name);
-        Category_txt.setText(category);
-        Price_txt.setText(price + " $");
-        Period_txt.setText(period);
-        Date_txt.setText(date);
+        Value_txt.setText(value + "");
 
         Delete_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair(conf.tag_id, idPub));
-                JSONObject json = sr.getJSON(conf.url_deletePublicity, params);
+                params.add(new BasicNameValuePair(conf.tag_id, idSer));
+                JSONObject json = sr.getJSON(conf.url_deleteService, params);
                 if(json != null){
                     try {
                         Toast.makeText(getActivity(), json.getString(conf.response), Toast.LENGTH_SHORT).show();
                         if(json.getBoolean(conf.res)) {
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
-                            ft.replace(R.id.container_body, new Publicity());
+                            ft.replace(R.id.container_body, new Services());
                             ft.addToBackStack(null);
                             ft.commit();
                         }
@@ -88,10 +80,10 @@ public class PublicityProfile extends Fragment {
 
         Edit_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment fr = new PublicityAdd();
+                Fragment fr = new ServiceAdd();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Bundle args = new Bundle();
-                args.putString(conf.tag_id, idPub);
+                args.putString(conf.tag_id, idSer);
                 fr.setArguments(args);
                 ft.replace(R.id.container_body, fr);
                 ft.addToBackStack(null);
@@ -106,7 +98,7 @@ public class PublicityProfile extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.container_body, new Publicity());
+        ft.replace(R.id.container_body, new Services());
         ft.addToBackStack(null);
         ft.commit();
     }

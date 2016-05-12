@@ -93,9 +93,10 @@ public class Services extends Fragment {
                     if(loads.length() != 0){
                         for (int i = 0; i < loads.length(); i++) {
                             JSONObject c = loads.getJSONObject(i);
+                            String id = c.getString(conf.tag_id);
                             String name = c.getString(conf.tag_name);
                             int value = c.getInt(conf.tag_value);
-                            ServiceDB taxi = new ServiceDB(name, value);
+                            ServiceDB taxi = new ServiceDB(id, name, value);
                             taxiDBList.add(taxi);
                         }
                     }

@@ -16,6 +16,7 @@ import java.util.List;
 
 import it.mahd.taxiadmin.R;
 import it.mahd.taxiadmin.activity.PublicityProfile;
+import it.mahd.taxiadmin.activity.ServiceProfile;
 import it.mahd.taxiadmin.util.Controllers;
 import it.mahd.taxiadmin.util.ServerRequest;
 
@@ -55,6 +56,7 @@ public class ServiceAdapterList extends BaseAdapter {
             v = inflater.inflate(R.layout.service_list, null);
             holder.Name_txt = (TextView) v.findViewById(R.id.Name_txt);
             holder.Value_txt = (TextView) v.findViewById(R.id.Value_txt);
+            holder.Row_relative = (RelativeLayout) v.findViewById(R.id.row_rl);
             v.setTag(holder);
         } else {
             holder = (TaxiHolder) v.getTag();
@@ -63,10 +65,27 @@ public class ServiceAdapterList extends BaseAdapter {
         holder.Name_txt.setText(data.get(position).getName());
         holder.Value_txt.setText(data.get(position).getValue() + "");
 
+        holder.Row_relative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View x) {
+                Fragment fr = new ServiceProfile();
+                FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+                Bundle args = new Bundle();
+                args.putString(conf.tag_id, data.get(position).getId());
+                args.putString(conf.tag_name, data.get(position).getName());
+                args.putInt(conf.tag_value, data.get(position).getValue());
+                fr.setArguments(args);
+                ft.replace(R.id.container_body, fr);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
         return v;
     }
 
     static class TaxiHolder {
         TextView Name_txt, Value_txt;
+        RelativeLayout Row_relative;
     }
 }

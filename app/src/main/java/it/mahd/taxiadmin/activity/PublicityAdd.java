@@ -93,7 +93,7 @@ public class PublicityAdd extends Fragment {
         periodArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Period_sp.setAdapter(periodArray);
 
-        if (!idPub.equals("")) {
+        if (idPub != null) {
             Add_btn.setText(R.string.edit);
             getPub();
         }
@@ -107,9 +107,9 @@ public class PublicityAdd extends Fragment {
         Add_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (conf.NetworkIsAvailable(getActivity())) {
-                    if (Add_btn.getText().toString().equals(R.string.add)) {
+                    if (Add_btn.getText().toString().equals(getString(R.string.add))) {
                         addForm();
-                    } else if (Add_btn.getText().toString().equals(R.string.add)) {
+                    } else if (Add_btn.getText().toString().equals(getString(R.string.edit))) {
                         editForm();
                     }
                 } else {

@@ -13,6 +13,7 @@
     <string name="reclamations">Reclamation</string>
     <string name="services">Service</string>
     <string name="service_add">Add Service</string>
+    <string name="service_profile">Profile Service</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="settings">Settings</string>

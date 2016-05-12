@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  */
 public class Controllers {
     //public static final String url = "http://10.0.2.2:4004";
-    public static final String url = "http://192.168.43.71:4004";
+    public static final String url = "http://192.168.8.101:4004";
     public static final String url_login = url + "/loginAdmin";
     public static final String url_getAllTaxi = url + "/getAllTaxi";
     public static final String url_getOneTaxi = url + "/getOneTaxi";
@@ -23,6 +23,9 @@ public class Controllers {
     public static final String url_deletePublicity = url + "/deletePublicity";
     public static final String url_getAllService = url + "/getAllService";
     public static final String url_addService = url + "/addService";
+    public static final String url_deleteService = url + "/deleteService";
+    public static final String url_getServiceById = url + "/getServiceById";
+    public static final String url_editService = url + "/editService";
     public static final String url_getAllReclamationAdmin = url + "/getAllReclamationAdmin";
     public static final String url_getAllMessage = url + "/getAllMessage";
     public static final String url_addMessageAdmin = url + "/addMessageAdmin";
