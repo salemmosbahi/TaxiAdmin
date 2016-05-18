@@ -11,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +44,7 @@ public class Users extends Fragment {
     ServerRequest sr = new ServerRequest();
 
     private Spinner Choice_sp;
-    private ListView BookList_lv;
+    private ListView UserList_lv;
 
     ArrayList<UsersDB> booknowDBList;
     private String type[] = {"Clients", "Drivers"};
@@ -58,7 +61,7 @@ public class Users extends Fragment {
         ((Main) getActivity()).getSupportActionBar().setTitle(getString(R.string.users));
         pref = getActivity().getSharedPreferences(conf.app, Context.MODE_PRIVATE);
 
-        BookList_lv = (ListView) v.findViewById(R.id.listBook);
+        UserList_lv = (ListView) v.findViewById(R.id.listBook);
         Choice_sp = (Spinner) v.findViewById(R.id.Choice_sp);
 
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, type); //selected item will look like a spinner set from XML
@@ -102,7 +105,7 @@ public class Users extends Fragment {
                             String city = c.getString(conf.tag_city);
                             int[] tab = new Calculator().getAge(c.getString(conf.tag_dateN));
                             String date = tab[0] + "years, " + tab[1] + "month, " + tab[2] + "day";
-                            UsersDB rec = new UsersDB(id, name, city, date);
+                            UsersDB rec = new UsersDB(id, name, city, date, "client");
                             booknowDBList.add(rec);
                         }
                     }
@@ -111,7 +114,7 @@ public class Users extends Fragment {
                 }
             }
             UsersAdapterList adapter = new UsersAdapterList(getActivity(), booknowDBList, Users.this);
-            BookList_lv.setAdapter(adapter);
+            UserList_lv.setAdapter(adapter);
         }else{
             Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
         }
@@ -133,7 +136,7 @@ public class Users extends Fragment {
                             String city = c.getString(conf.tag_city);
                             int[] tab = new Calculator().getAge(c.getString(conf.tag_dateN));
                             String date = tab[0] + "years, " + tab[1] + "month, " + tab[2] + "day";
-                            UsersDB rec = new UsersDB(id, name, city, date);
+                            UsersDB rec = new UsersDB(id, name, city, date, "driver");
                             booknowDBList.add(rec);
                         }
                     }
@@ -142,7 +145,7 @@ public class Users extends Fragment {
                 }
             }
             UsersAdapterList adapter = new UsersAdapterList(getActivity(), booknowDBList, Users.this);
-            BookList_lv.setAdapter(adapter);
+            UserList_lv.setAdapter(adapter);
         }else{
             Toast.makeText(getActivity(), R.string.networkunvalid, Toast.LENGTH_SHORT).show();
         }

@@ -4,13 +4,14 @@ package it.mahd.taxiadmin.database;
  * Created by salem on 10/05/16.
  */
 public class UsersDB {
-    private String id, name, city, date;
+    private String id, name, city, date, account;
 
-    public UsersDB(String id, String name, String city, String date) {
+    public UsersDB(String id, String name, String city, String date, String account) {
         this.id = id;
         this.name = name;
         this.city = city;
         this.date = date;
+        this.account = account;
     }
 
     public String getId() {
@@ -43,5 +44,13 @@ public class UsersDB {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 }

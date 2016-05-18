@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  */
 public class Controllers {
     //public static final String url = "http://10.0.2.2:4004";
-    public static final String url = "http://192.168.8.101:4004";
+    public static final String url = "http://192.168.8.105:4004";
     public static final String url_login = url + "/loginAdmin";
     public static final String url_getAllTaxi = url + "/getAllTaxi";
     public static final String url_getOneTaxi = url + "/getOneTaxi";
@@ -34,6 +34,8 @@ public class Controllers {
     public static final String url_getAllClients = url + "/getAllClients";
     public static final String url_getAllDrivers = url + "/getAllDrivers";
     public static final String url_editPublicity = url + "/editPublicity";
+    public static final String url_disableAccountAdmin = url + "/disableAccountAdmin";
+    public static final String url_renewalTaxi = url + "/renewalTaxi";
 
     public static final String app = "AppTaxiAdmin";
     public static final String res = "res";
@@ -98,6 +100,8 @@ public class Controllers {
     public static final String tag_nameDriver = "nameDriver";
     public static final String tag_dateBook = "dateBook";
     public static final String tag_notify = "notify";
+    public static final String tag_dateExp = "dateExp";
+    public static final String tag_pub = "pub";
 
     public Controllers() {}
 

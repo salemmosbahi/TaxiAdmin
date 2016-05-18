@@ -4,9 +4,9 @@ package it.mahd.taxiadmin.database;
  * Created by salem on 04/05/16.
  */
 public class TaxiDB {
-    private String idTaxi, mark, model, serial, places, luggages, date;
+    private String idTaxi, mark, model, serial, places, luggages, date, pub, dateExp;
 
-    public TaxiDB(String idTaxi, String mark, String model, String serial, String places, String luggages, String date) {
+    public TaxiDB(String idTaxi, String mark, String model, String serial, String places, String luggages, String date, String pub, String dateExp) {
         this.idTaxi = idTaxi;
         this.mark = mark;
         this.model = model;
@@ -14,6 +14,8 @@ public class TaxiDB {
         this.places = places;
         this.luggages = luggages;
         this.date = date;
+        this.pub = pub;
+        this.dateExp = dateExp;
     }
 
     public String getIdTaxi() {
@@ -70,5 +72,21 @@ public class TaxiDB {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getPub() {
+        return pub;
+    }
+
+    public void setPub(String pub) {
+        this.pub = pub;
+    }
+
+    public String getDateExp() {
+        return dateExp;
+    }
+
+    public void setDateExp(String dateExp) {
+        this.dateExp = dateExp;
     }
 }

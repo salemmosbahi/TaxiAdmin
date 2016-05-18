@@ -6,13 +6,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import it.mahd.taxiadmin.R;
 import it.mahd.taxiadmin.util.Controllers;
+import it.mahd.taxiadmin.util.ServerRequest;
 
 /**
  * Created by salem on 10/05/16.
@@ -50,6 +61,7 @@ public class UsersAdapterList extends BaseAdapter {
             holder.Name_txt = (TextView) v.findViewById(R.id.Name_txt);
             holder.City_txt = (TextView) v.findViewById(R.id.City_txt);
             holder.Date_txt = (TextView) v.findViewById(R.id.Date_txt);
+            holder.Row_rl = (RelativeLayout) v.findViewById(R.id.row_rl);
             v.setTag(holder);
         } else {
             holder = (TaxiHolder) v.getTag();
@@ -58,11 +70,31 @@ public class UsersAdapterList extends BaseAdapter {
         holder.Name_txt.setText(data.get(position).getName());
         holder.City_txt.setText(data.get(position).getCity());
         holder.Date_txt.setText(data.get(position).getDate());
+        holder.Row_rl.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("account", data.get(position).getAccount()));
+                params.add(new BasicNameValuePair(conf.tag_token, data.get(position).getId()));
+                JSONObject json = new ServerRequest().getJSON(conf.url_disableAccountAdmin, params);
+                if (json != null) {
+                    try {
+                        if(json.getBoolean("res")) {
+                            Toast.makeText(contxt, json.getString(conf.response), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch(JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return true;
+            }
+        });
 
         return v;
     }
 
     static class TaxiHolder {
         TextView Name_txt, City_txt, Date_txt;
+        RelativeLayout Row_rl;
     }
 }

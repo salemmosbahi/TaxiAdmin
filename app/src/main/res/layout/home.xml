@@ -14,30 +14,30 @@
     <Button
         style="@style/DashButton"
         android:id="@+id/Publicity_btn"
-        android:drawableTop="@mipmap/ic_launcher"
+        android:drawableTop="@mipmap/publicity"
         android:text="@string/publicity" />
 
     <Button
         style="@style/DashButton"
         android:id="@+id/Users_btn"
-        android:drawableTop="@mipmap/ic_launcher"
+        android:drawableTop="@mipmap/user"
         android:text="@string/users" />
 
     <Button
         style="@style/DashButton"
         android:id="@+id/Services_btn"
-        android:drawableTop="@mipmap/ic_launcher"
+        android:drawableTop="@mipmap/service"
         android:text="@string/services" />
 
     <Button
         style="@style/DashButton"
-        android:id="@+id/Books_btn"
-        android:drawableTop="@mipmap/ic_launcher"
-        android:text="@string/books" />
+        android:id="@+id/Reclamations_btn"
+        android:drawableTop="@mipmap/reclamation"
+        android:text="@string/reclamations" />
 
     <Button
         style="@style/DashButton"
-        android:id="@+id/Reclamations_btn"
-        android:drawableTop="@mipmap/ic_launcher"
-        android:text="@string/reclamations" />
+        android:id="@+id/Books_btn"
+        android:drawableTop="@mipmap/book"
+        android:text="@string/books" />
 </it.mahd.taxiadmin.model.DashboardLayout>

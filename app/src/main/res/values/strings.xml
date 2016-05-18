@@ -44,6 +44,7 @@
     <string name="name_err">Enter the name</string>
     <string name="price">Price</string>
     <string name="price_err">Enter the price</string>
+    <string name="renewal">Renewal</string>
 
     <string-array name="nav_drawer_labels">
         <item>@string/home</item>

@@ -115,7 +115,9 @@ public class Taxi extends Fragment {
                             String places = String.valueOf(c.getInt(conf.tag_places));
                             String luggages = String.valueOf(c.getString(conf.tag_luggages));
                             String date = c.getString(conf.tag_date);
-                            TaxiDB taxi = new TaxiDB(idTaxi, mark, model, serial, places, luggages, date);
+                            String pub = String.valueOf(c.getString(conf.tag_pub));
+                            String dateExp = c.getString(conf.tag_dateExp);
+                            TaxiDB taxi = new TaxiDB(idTaxi, mark, model, serial, places, luggages, date, pub, dateExp);
                             taxiDBList.add(taxi);
                         }
                     }
@@ -146,7 +148,9 @@ public class Taxi extends Fragment {
                             String places = String.valueOf(c.getInt(conf.tag_places));
                             String luggages = String.valueOf(c.getString(conf.tag_luggages));
                             String date = c.getString(conf.tag_date);
-                            TaxiDB taxi = new TaxiDB(idTaxi, mark, model, serial, places, luggages, date);
+                            String pub = String.valueOf(c.getString(conf.tag_pub));
+                            String dateExp = c.getString(conf.tag_dateExp);
+                            TaxiDB taxi = new TaxiDB(idTaxi, mark, model, serial, places, luggages, date, pub, dateExp);
                             taxiDBList.add(taxi);
                         }
                     }

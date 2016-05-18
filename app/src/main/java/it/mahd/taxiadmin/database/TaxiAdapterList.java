@@ -80,6 +80,8 @@ public class TaxiAdapterList extends BaseAdapter {
                 args.putString(conf.tag_places, data.get(position).getPlaces());
                 args.putString(conf.tag_luggages, data.get(position).getLuggages());
                 args.putString(conf.tag_date, data.get(position).getDate());
+                args.putString(conf.tag_pub, data.get(position).getPub());
+                args.putString(conf.tag_dateExp, data.get(position).getDateExp());
                 fr.setArguments(args);
                 ft.replace(R.id.container_body, fr);
                 ft.addToBackStack(null);
