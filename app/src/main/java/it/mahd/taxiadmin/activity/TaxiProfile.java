@@ -20,6 +20,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,20 +76,23 @@ public class TaxiProfile extends Fragment {
         Luggages_txt.setText(luggages + " Luggages");
         Date_txt.setText(date);
         if (pub != "null") {
-            String[] strTemp = date.split("/");
-            int year = Integer.parseInt(strTemp[0].toString());
-            int month = Integer.parseInt(strTemp[1].toString());
-            int day = Integer.parseInt(strTemp[2].toString());
-            long l[] = new Calculator().getDifference2Dates(new Date(year,month,day),new Date());
-            if (l[0] < 500) {
-                Renewal_btn.setVisibility(View.VISIBLE);
-            }
-
             Pub_txt.setText(pub);
             DateExp_txt.setText(dateExp);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/M/dd");
+            try {
+                Date startDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+                Date endDate = simpleDateFormat.parse(dateExp);
+                long l[] = new Calculator().getDifference2Dates(startDate, endDate);
+                if (l[1] <= 20) { // within 20 days
+                    Renewal_btn.setVisibility(View.VISIBLE);
+                }
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
         } else {
             Pub_txt.setVisibility(View.GONE);
             DateExp_txt.setVisibility(View.GONE);
+            Renewal_btn.setVisibility(View.VISIBLE);
         }
 
         Delete_btn.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +123,7 @@ public class TaxiProfile extends Fragment {
                 JSONObject json = sr.getJSON(conf.url_renewalTaxi, params);
                 if(json != null){
                     try {
-                        Toast.makeText(getActivity(), json.getString(conf.response), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), json.getString(conf.response), Toast.LENGTH_SHORT).show();
                         if(json.getBoolean(conf.res)) {
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                             ft.replace(R.id.container_body, new Taxi());
