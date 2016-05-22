@@ -128,9 +128,8 @@ public class Book extends Fragment {
                             String id = c.getString(conf.tag_id);
                             String nameClient = c.getString(conf.tag_username);
                             String nameDriver = c.getString(conf.tag_nameDriver);
-                            String value = (c.getBoolean(conf.tag_repeat)) ? "repeat" : "not repeat";
                             String date = c.getString(conf.tag_dateBook);
-                            BookNowDB rec = new BookNowDB(id, nameClient, nameDriver, value, date);
+                            BookNowDB rec = new BookNowDB(id, nameClient, nameDriver, "", date);
                             booknowDBList.add(rec);
                         }
                     }

@@ -2,7 +2,9 @@ package it.mahd.taxiadmin.database;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.mahd.taxiadmin.R;
+import it.mahd.taxiadmin.activity.Profile;
+import it.mahd.taxiadmin.activity.TaxiProfile;
 import it.mahd.taxiadmin.util.Controllers;
 import it.mahd.taxiadmin.util.ServerRequest;
 
@@ -87,6 +91,21 @@ public class UsersAdapterList extends BaseAdapter {
                     }
                 }
                 return true;
+            }
+        });
+
+        holder.Row_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fr = new Profile();
+                FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+                Bundle args = new Bundle();
+                args.putString(conf.tag_id, data.get(position).getId());
+                args.putString("account", data.get(position).getAccount());
+                fr.setArguments(args);
+                ft.replace(R.id.container_body, fr);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 
